@@ -14,12 +14,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.IOException;
-@Configuration
-public class RedisConfig {
+import java.net.URL;
+
+public class RedisConfigLibrary {
 
     private RedissonClient redisson;
 
@@ -27,7 +29,7 @@ public class RedisConfig {
     @ConditionalOnMissingBean(RedissonClient.class)
     public RedissonClient redissonClient() throws IOException {
         System.out.println("redis-library-config");
-        String configFileName = "redis.yml";
+        String configFileName = "redis.yaml";
         File resourceURL = ResourceUtils.getFile("classpath:" + configFileName);
         Config config = Config.fromYAML(resourceURL);
         redisson = Redisson.create(config);

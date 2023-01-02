@@ -1,5 +1,6 @@
 package com.example.redislibrary;
 
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,11 +18,14 @@ public class RedisLibraryApplication implements CommandLineRunner  {
 
 	@Override
 	public void run(String... args) throws Exception {
-		String[] beans = appContext.getBeanDefinitionNames();
-		for(String bean:beans){
-			System.out.println("Bean name: " + bean);
-			Object object = appContext.getBean(bean);
-			System.out.println( "Bean object:" + object);
-		}
+		RedissonClient redis=appContext.getBean(RedissonClient.class);
+
+		System.out.print("redis keys Count: " +redis.getKeys().count());
+//		String[] beans = appContext.getBeanDefinitionNames();
+//		for(String bean:beans){
+//			System.out.println("Bean name: " + bean);
+//			Object object = appContext.getBean(bean);
+//			System.out.println( "Bean object:" + object);
+//		}
 	}
 }
